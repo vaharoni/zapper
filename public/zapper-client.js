@@ -5,7 +5,7 @@ $(function() {
 		// var duration = $('input[name=duration]:radio:checked').val();
 
 		var strength = 1;
-		var duration = $('input[name=strength]:radio:checked').val();
+		var duration = $('input[name=strength]').val();
 		sendDataToServer(strength, duration, updateStatus);
 		return false;
 	});
