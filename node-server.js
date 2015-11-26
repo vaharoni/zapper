@@ -61,7 +61,7 @@ app.post('/server', function(req, res) {
 					if (clientObj["stamp"] == zapperClients[clientId]["stamp"]) {
 						sendData(clientId, "timeout");
 					}
-				}, 50000);
+				}, 25000);
 
 				req.on('close', function() {
 					if (clientObj["stamp"] == zapperClients[clientId]["stamp"]) {
