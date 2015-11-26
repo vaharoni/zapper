@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
+    i18n (0.6.5)
+    multi_json (1.8.0)
+    multi_xml (0.5.5)
+    serialport (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  active_support
+  httparty
+  i18n
+  serialport
