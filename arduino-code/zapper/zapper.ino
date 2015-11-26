@@ -18,19 +18,19 @@ void loop() {
     Serial.println(strength);
     Serial.println(duration);
 
-    int pulse_length = 20;
-    int delay_length = (1000 - strength * pulse_length) / strength;
-        
-    for (int i = 0; i < round(strength * 1.0 * duration / 1000); i++) {
-      analogWrite(led, 255);
-      delay(pulse_length);
-      analogWrite(led, 0);
-      delay(delay_length);
-    }
+//   Turned off strength for new zapper. Ignoring all inputs and simply sending 100
+    analogWrite(led, 100);
 
-//    analogWrite(led, strength);
-//    delay(duration);
-//    analogWrite(led, 0);
+//    int pulse_length = 20;
+//    int delay_length = (1000 - strength * pulse_length) / strength;
+//        
+//    for (int i = 0; i < round(strength * 1.0 * duration / 1000); i++) {
+//      analogWrite(led, 255);
+//      delay(pulse_length);
+//      analogWrite(led, 0);
+//      delay(delay_length);
+//    }
+
   }
 }
 
