@@ -17,6 +17,7 @@ app.get('/test', function(req,res) {
 var zapperClients = [];
 var lastRequest = null;
 var lastRequestTime;
+var readyToZap = true;
 
 app.get('/server', function(req,res) {
 	res.send(_u(zapperClients).map(function(x) { return clientObjToStr(x) }));
@@ -75,27 +76,32 @@ app.post('/server', function(req, res) {
 				}
 			}
 		} else if(clientType == "web") {
-			// var strength = mapRange(dataHash['strength'], 1, 5, 50, 255);
-			// var duration = mapRange(dataHash['duration'], 1, 3, 100, 500);
+		  if (readyToZap) {
+  			// var strength = mapRange(dataHash['strength'], 1, 5, 50, 255);
+  			// var duration = mapRange(dataHash['duration'], 1, 3, 100, 500);
 
-			// Moving range mapping to the client
-			var strength = dataHash['strength'];
-			var duration = dataHash['duration'];
-			console.log("ZAP! data= ", dataHash, "strength=", strength, " duration=", duration);			
+  			// Moving range mapping to the client
+  			var strength = dataHash['strength'];
+  			var duration = dataHash['duration'];
+  			console.log("ZAP! data= ", dataHash, "strength=", strength, " duration=", duration);			
 
-			if (strength > 0 && duration > 0) {							
-				// Send to the first zapper client
-				for (i = 0; i < zapperClients.length; i++) {
-					if(zapperClients[i] != undefined && zapperClients[i]["active"]) {
-						sendData(i, strength, duration);
-						break;
-					}
-				}				
-			}
-			
-			// Send status to the web client
-			res.setHeader('Access-Control-Allow-Origin', "*");
-			res.end(isConnected());
+  			if (strength > 0 && duration > 0) {							
+  				// Send to the first zapper client
+  				for (i = 0; i < zapperClients.length; i++) {
+  					if(zapperClients[i] != undefined && zapperClients[i]["active"]) {
+  						sendData(i, strength, duration);
+  						break;
+  					}
+  				}				
+  			}
+  			
+  			readyToZap = false;
+  			setTimeOut(function() { readyToZap = true }, 30000)
+
+  			// Send status to the web client
+  			res.setHeader('Access-Control-Allow-Origin', "*");
+  			res.end(isConnected());		    
+		  }
 		} else {
 			console.log("ERROR: Unrecognized client ", clientType);
 		}		
