@@ -96,7 +96,7 @@ app.post('/server', function(req, res) {
   			}
   			
   			readyToZap = false;
-  			setTimeOut(function() { readyToZap = true }, 30000)
+  			setTimeout(function() { readyToZap = true }, 30000)
 
   			// Send status to the web client
   			res.setHeader('Access-Control-Allow-Origin', "*");

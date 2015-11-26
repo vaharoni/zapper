@@ -7,6 +7,11 @@ $(function() {
 		var strength = 1;
 		var duration = $('input[name=strength]').val();
 		sendDataToServer(strength, duration, updateStatus);
+		
+		var $that = $(this);
+		$that.prop('enabled', false);
+		setTimeout(function() { $that.prop('enabled', true) }, 31000);
+		
 		return false;
 	});
 	
