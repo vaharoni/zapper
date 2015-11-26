@@ -9,8 +9,8 @@ $(function() {
 		sendDataToServer(strength, duration, updateStatus);
 		
 		var $that = $(this);
-		$that.prop('enabled', false);
-		setTimeout(function() { $that.prop('enabled', true) }, 31000);
+		$that.prop('disabled', true);
+		setTimeout(function() { $that.prop('disabled', false) }, 31000);
 		
 		return false;
 	});
