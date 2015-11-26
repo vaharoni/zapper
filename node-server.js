@@ -76,32 +76,32 @@ app.post('/server', function(req, res) {
 				}
 			}
 		} else if(clientType == "web") {
-		  if (readyToZap) {
-  			// var strength = mapRange(dataHash['strength'], 1, 5, 50, 255);
-  			// var duration = mapRange(dataHash['duration'], 1, 3, 100, 500);
+			var strength = dataHash['strength'];
+			var duration = dataHash['duration'];
+			
+			if (strength == 'ping' || !readyToZap) {
+        res.setHeader('Access-Control-Allow-Origin', "*");
+        return res.end(isConnected());		    
+			}
 
-  			// Moving range mapping to the client
-  			var strength = dataHash['strength'];
-  			var duration = dataHash['duration'];
-  			console.log("ZAP! data= ", dataHash, "strength=", strength, " duration=", duration);			
+			console.log("ZAP! data= ", dataHash, "strength=", strength, " duration=", duration);			
 
-  			if (strength > 0 && duration > 0) {							
-  				// Send to the first zapper client
-  				for (i = 0; i < zapperClients.length; i++) {
-  					if(zapperClients[i] != undefined && zapperClients[i]["active"]) {
-  						sendData(i, strength, duration);
-  						break;
-  					}
-  				}				
-  			}
-  			
-  			readyToZap = false;
-  			setTimeout(function() { readyToZap = true }, 30000)
+			if (strength > 0 && duration > 0) {							
+				// Send to the first zapper client
+				for (i = 0; i < zapperClients.length; i++) {
+					if(zapperClients[i] != undefined && zapperClients[i]["active"]) {
+						sendData(i, strength, duration);
+						break;
+					}
+				}				
+			}
+			
+			readyToZap = false;
+			setTimeout(function() { readyToZap = true }, 30000)
 
-  			// Send status to the web client
-  			res.setHeader('Access-Control-Allow-Origin', "*");
-  			res.end(isConnected());		    
-		  }
+			// Send status to the web client
+			res.setHeader('Access-Control-Allow-Origin', "*");
+			res.end(isConnected());		    
 		} else {
 			console.log("ERROR: Unrecognized client ", clientType);
 		}		
